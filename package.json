@@ -1,18 +1,23 @@
 {
   "private": true,
   "scripts": {
-    "start": "set PORT=3000&&umi dev",
+    "start": "ESLINT=none umi dev",
     "build": "umi build",
     "lint": "eslint --ext .js src test",
     "precommit": "npm run lint"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "dva": "^2.1.0",
+    "path-to-regexp": "^2.2.0",
+    "redux-logger": "^3.0.6",
     "umi": "^1.0.0-0",
-    "umi-plugin-dva": "^0.1.5"
+    "umi-plugin-dva": "^0.5.0"
   },
   "devDependencies": {
+    "babel-eslint": "^8.2.2",
     "eslint": "^4.14.0",
+    "eslint-config-airbnb": "^16.1.0",
     "eslint-config-umi": "^0.1.1",
     "eslint-plugin-flowtype": "^2.34.1",
     "eslint-plugin-import": "^2.6.0",

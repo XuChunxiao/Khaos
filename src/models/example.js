@@ -6,14 +6,14 @@ export default {
   state: {},
 
   subscriptions: {
-    setup({ dispatch, history }) {
-    },
+    // setup({ dispatch, history }) {
+    // },
   },
 
   effects: {
-    *fetch({ payload }, { call, put }) {
-      yield put({ type: 'save' });
-    },
+    // *fetch({ payload }, { call, put }) {
+    //   yield put({ type: 'save' });
+    // },
   },
 
   reducers: {

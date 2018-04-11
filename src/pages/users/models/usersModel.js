@@ -1,4 +1,4 @@
-import * as usersService from '../services/users';
+import * as usersService from '../services/usersService';
 
 export default {
   namespace: 'users',
@@ -9,7 +9,9 @@ export default {
   },
   reducers: {
     save(state, { payload: { data: list, total, page } }) {
-      return { ...state, list, total, page };
+      return {
+        ...state, list, total, page,
+      };
     },
   },
   effects: {
@@ -23,21 +25,6 @@ export default {
           page: parseInt(page, 10),
         },
       });
-    },
-    *remove({ payload: id }, { call, put, select }) {
-      yield call(usersService.remove, id);
-      const page = yield select(state => state.users.page);
-      yield put({ type: 'fetch', payload: { page } });
-    },
-    *patch({ payload: { id, values } }, { call, put, select }) {
-      yield call(usersService.patch, id, values);
-      const page = yield select(state => state.users.page);
-      yield put({ type: 'fetch', payload: { page } });
-    },
-    *create({ payload: values }, { call, put, select }) {
-      yield call(usersService.create, values);
-      const page = yield select(state => state.users.page);
-      yield put({ type: 'fetch', payload: { page } });
     },
   },
   subscriptions: {
