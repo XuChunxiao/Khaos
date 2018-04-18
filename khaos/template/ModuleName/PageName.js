@@ -5,6 +5,10 @@ import moment from 'moment';
 import styles from './ModuleName.less';
 import { paginationParams } from '../../constants';
 import PageNameFilter from './components/PageNameFilter';
+/* add option begin */
+import AddEditPageName from './components/AddEditPageName';
+/* end */
+
 
 class PageName extends React.Component {
   handleTableChange = (pagination, filters, sorter = {}) => {
@@ -102,12 +106,34 @@ class PageName extends React.Component {
         // fixed: 'right',
         render: (text, record) => (
           <div>
-            {record.auditStatus == 'audit_pending' ?
-              <a onClick={() => { this.changeModalView('modalVisible', 'open', 'edit'); this.edit(record.ydataAccountId); }}>审核</a>
-              : null
+            <a onClick={() => {
+              this.props.dispatch({
+                type: 'UserMgr/updateDoctorModal',
+                payload: {
+                  newParams: {
+                    showAddEdit: true,
+                    isEdit: true,
+                  },
+                },
+              });
+              this.props.dispatch({
+                type: 'UserMgr/updateSaveParams',
+                payload: {
+                  saveParams: {
+                    questionTypeName: 'test',
+                  },
+                },
+              });
+            }}
+            >修改
+            </a>
+            <Divider type="vertical" />
+            <a onClick={() => { this.changeModalView('modalVisible', 'open', 'edit'); this.edit(record.ydataAccountId); }}>修改</a>
+            {
+              /* add option begin */
+              <AddEditPageName />
+              /* end */
             }
-            <span className="ant-divider" />
-            <a onClick={() => { this.changeModalView('historyVisible', 'open'); this.setState({ name: record.ydataAccountCompellation }, () => { this.selectAuditHistoryByAcctId({ acctId: record.ydataAccountId }); }); }}>审核历史</a>
           </div>
         ),
       },
@@ -125,7 +151,7 @@ class PageName extends React.Component {
             columns={columns}
             pagination={paginationProps}
             onChange={this.handleTableChange}
-            scroll={{ x: 1150 }}
+            scroll={{ x: 1150 }}//@template scroll-x
           />
         </div>
       </div>

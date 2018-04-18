@@ -7,6 +7,11 @@ export default {
       list: [],
       queryParams: {}, // stateNameList 为object array,queryParams含查询条件，
       // 排序条件(direction,sort)和分页条件(limit,offset)
+      /* add option begin */
+      saveParams: {},//添加或编辑Modal字段值
+      isEdit: false,
+      showAddEdit: false,
+      /* end */
     },
   },
   reducers: {
@@ -50,6 +55,45 @@ export default {
         },
       };
     },
+    /* add option begin */
+    updateSaveParams(state, {
+      payload: {
+        saveParams,
+      },
+    }) {
+      const newData = {
+        ...state.stateName,
+        saveParams,
+      };
+      return {
+        ...state, stateName: { ...newData },
+      };
+    },
+    clearSubmitParams(state) {
+      const newData = {
+        ...state.stateName,
+        saveParams: {},
+      };
+      return {
+        ...state,
+        stateName: { ...newData },
+      };
+    },
+    updateDoctorModal(state, {
+      payload: {
+        newParams,
+      },
+    }) {
+      const newData = {
+        ...state.stateName,
+        ...newParams,
+      };
+      return {
+        ...state,
+        stateName: { ...newData },
+      };
+    },
+    /* end */
   },
   effects: {
     *queryPageName({ payload = {} }, { call, put, select }) {
@@ -80,6 +124,54 @@ export default {
         },
       });
     },
+    /* add option begin */
+    *submitPageName({ payload = {}, callback }, { call, put, select }) {
+      const { stateName = {} } = yield select(state => state.UserMgr) || {};
+      const { submitParams = {} } = stateName;
+      const newPayload = {
+        ...submitParams,
+        ...payload,
+      };
+      yield put({
+        type: 'updateSaveParams',
+        payload: {
+          saveParams: newPayload,
+        },
+      });
+      const response = yield call(UserMgrService.submitPageName, newPayload);
+      if (!response) {
+        return;
+      }
+      if (!response.error) {
+        if (callback) {
+          callback(response);
+        }
+      }
+    },
+    *editPageName({ payload = {}, callback }, { call, put, select }) {
+      const { stateName = {} } = yield select(state => state.UserMgr) || {};
+      const { submitParams = {} } = stateName;
+      const newPayload = {
+        ...submitParams,
+        ...payload,
+      };
+      yield put({
+        type: 'updateSaveParams',
+        payload: {
+          saveParams: newPayload,
+        },
+      });
+      const response = yield call(UserMgrService.editPageName, newPayload);
+      if (!response) {
+        return;
+      }
+      if (!response.error) {
+        if (callback) {
+          callback(response);
+        }
+      }
+    },
+    /* end */
   },
   subscriptions: {
     setup({ dispatch, history }) {

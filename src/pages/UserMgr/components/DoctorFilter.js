@@ -14,7 +14,18 @@ class DoctorFilter extends React.Component {
         },
       });
     }
-
+  /* add option begin */
+    showAddEditModal = () => {
+      this.props.dispatch({
+        type: 'UserMgr/updateDoctorModal',
+        payload: {
+          newParams: {
+            showAddEdit: true,
+          },
+        },
+      });
+    }
+  /* end */
     render() {
       const { getFieldDecorator } = this.props.form;
       const { assistants } = this.props;
@@ -57,12 +68,16 @@ class DoctorFilter extends React.Component {
               </Select>)
             }
           </FormItem>
-          {/* <Button
-            icon="plus"
-            type="primary"
-            onClick={() => { this.props.changeModalView('modalVisible', 'open', 'new'); }}
-          >添加
-          </Button> */}
+          {
+/* add option begin */
+            <Button
+              icon="plus"
+              type="primary"
+              onClick={() => { this.showAddEditModal(); }}
+            >添加
+            </Button>
+/* end */
+}
           <Button icon="search" onClick={this.handleSearch} type="primary" htmlType="submit" style={{ marginRight: 10 }}>搜索</Button>
         </Form>
       );

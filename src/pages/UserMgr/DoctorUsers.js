@@ -1,10 +1,13 @@
 import React from 'react';
 import { connect } from 'dva';
-import { Table } from 'antd';
+import { Table, Divider } from 'antd';
 import moment from 'moment';
 import styles from './UserMgr.less';
 import { paginationParams } from '../../constants';
 import DoctorFilter from './components/DoctorFilter';
+/* add option begin */
+import AddEditDoctorUsers from './components/AddEditDoctorUsers';
+/* end */
 
 class DoctorUsers extends React.Component {
   componentWillUnmount() {
@@ -118,12 +121,29 @@ class DoctorUsers extends React.Component {
         // fixed: 'right',
         render: (text, record) => (
           <div>
-            {record.auditStatus == 'audit_pending' ?
-              <a onClick={() => { this.changeModalView('modalVisible', 'open', 'edit'); this.edit(record.ydataAccountId); }}>审核</a>
-              : null
-            }
-            <span className="ant-divider" />
-            <a onClick={() => { this.changeModalView('historyVisible', 'open'); this.setState({ }, () => { this.selectAuditHistoryByAcctId({ acctId: record.ydataAccountId }); }); }}>审核历史</a>
+            <a onClick={() => {
+              this.props.dispatch({
+                type: 'UserMgr/updateDoctorModal',
+                payload: {
+                  newParams: {
+                    showAddEdit: true,
+                    isEdit: true,
+                  },
+                },
+              });
+              this.props.dispatch({
+                type: 'UserMgr/updateSaveParams',
+                payload: {
+                  saveParams: {
+                    questionTypeName: 'test',
+                  },
+                },
+              });
+            }}
+            >修改
+            </a>
+            <Divider type="vertical" />
+            <a onClick={() => { this.changeModalView('modalVisible', 'open', 'edit'); this.edit(record.ydataAccountId); }}>修改</a>
           </div>
         ),
       },
@@ -146,6 +166,11 @@ class DoctorUsers extends React.Component {
             // scroll={{ y: lists.length > config.listLength ? config.scroll.y : null }}
           />
         </div>
+        {
+          /* add option begin */
+          <AddEditDoctorUsers />
+          /* end */
+        }
       </div>
     );
   }
