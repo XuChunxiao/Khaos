@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'dva';
 import { Form, Input, Select, Button } from 'antd';
 
-const FormItem = Form.Item;
 const { Option } = Select;
 class DoctorFilter extends React.Component {
     handleSearch = () => {
