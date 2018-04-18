@@ -80,4 +80,18 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(Form.create({})(DoctorFilter));
+export default connect(mapStateToProps)(Form.create({
+  mapPropsToFields(props) {
+    const { queryParams } = props;
+    const newProps = {};
+    const objArr = Object.entries(queryParams);
+    objArr.map((arr) => {
+      newProps[arr[0]] = Form.createFormField({
+        value: arr[1],
+      });
+    });
+    return {
+      ...newProps,
+    };
+  },
+})(DoctorFilter));

@@ -41,6 +41,15 @@ export default {
         ...state, doctorUsers: { ...newData },
       };
     },
+    clearDoctorParams(state) {
+      return {
+        ...state,
+        doctorUsers: {
+          list: [],
+          queryParams: {},
+        },
+      };
+    },
   },
   effects: {
     *queryDoctors({ payload = {} }, { call, put, select }) {

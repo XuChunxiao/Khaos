@@ -4,7 +4,7 @@ import { Table, Pagination, Popconfirm } from 'antd';
 import moment from 'moment';
 import styles from './ModuleName.less';
 import { paginationParams } from '../../constants';
-import PageNameFilter from './components/DoctorFilter';
+import PageNameFilter from './components/PageNameFilter';
 
 class PageName extends React.Component {
   handleTableChange = (pagination, filters, sorter = {}) => {

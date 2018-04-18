@@ -41,6 +41,15 @@ export default {
         ...state, stateName: { ...newData },
       };
     },
+    clearPageNameParams(state) {
+      return {
+        ...state,
+        stateName: {
+          list: [],
+          queryParams: {},
+        },
+      };
+    },
   },
   effects: {
     *queryPageName({ payload = {} }, { call, put, select }) {

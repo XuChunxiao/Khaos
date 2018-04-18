@@ -7,6 +7,12 @@ import { paginationParams } from '../../constants';
 import DoctorFilter from './components/DoctorFilter';
 
 class DoctorUsers extends React.Component {
+  componentWillUnmount() {
+    this.props.dispatch({
+      type: 'UserMgr/clearDoctorParams',
+    });
+  }
+
   handleTableChange = (pagination, filters, sorter = {}) => {
     const { pageSize: limit, current: offset } = pagination;
     const newParams = {
