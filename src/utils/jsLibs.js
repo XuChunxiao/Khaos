@@ -25,15 +25,3 @@ export const convertBase64UrlToBlob = (urlData) => {
 
   return new Blob([ab], { type: 'image/png' });
 };
-
-
-const array = [];
-const auth = [];
-const getAuth = (arrayObj) => {
-  arrayObj.map((obj ,index) => {
-    auth.push(obj.auth);
-    if(obj.children){
-      getAuth(obj.children);
-    }
-  })
-}
