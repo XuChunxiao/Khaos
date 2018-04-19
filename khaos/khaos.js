@@ -7,7 +7,7 @@ copydir.sync('./template', './temp');
 const ModuleName = process.argv[2];
 const PageName = process.argv[3];
 const stateName = process.argv[4];
-
+const add = process.argv[5];
 
 function geFileList(path) {
   const filesList = [];
@@ -30,9 +30,15 @@ function readFile(path, filesList) {
       const obj = new Object();
       obj.size = states.size;
       obj.name = file;
+      if(add != "add" && file == "AddEditPageName.js"){
+        fs.unlink(`${path}/${file}`, (err) => {
+          if (err) throw err;
+        });
+        return;
+      }
       const newPath = `${path}/${file.replace('ModuleName', ModuleName).replace('PageName', PageName)}`;
       obj.path = newPath;
-
+      
       fs.renameSync(`${path}/${file}`, newPath, (err) => {
         if (err) console.log(`ERROR: ${err}`);
       });
@@ -40,8 +46,11 @@ function readFile(path, filesList) {
         if (err) {
           return console.log(err);
         }
-        const result = data.replace(/ModuleName/g, ModuleName).replace(/PageName/g, PageName).replace(/stateName/g, stateName);
-
+        let result = "";
+        result = data.replace(/ModuleName/g, ModuleName).replace(/PageName/g, PageName).replace(/stateName/g, stateName);
+        if(add == "add"){
+          result = result.replace(/\/\* add option begin/g,'').replace(/end \*\//g,'');
+        }
         fs.writeFile(newPath, result, 'utf8', (err1) => {
           if (err1) return console.log(err);
         });
@@ -52,7 +61,6 @@ function readFile(path, filesList) {
 }
 
 geFileList('./temp');
-
 setTimeout(() => {
   copydir.sync(`./temp/${ModuleName}`, `../src/pages/${ModuleName}`);
   rimraf('./temp', () => {});

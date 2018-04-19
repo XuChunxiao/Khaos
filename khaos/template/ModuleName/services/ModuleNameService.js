@@ -10,7 +10,7 @@ export function queryPageName(params = {}) {
   };
   return request(`${API_URL.project.queryPageName}`, newParams);//@template
 }
-/* add option begin */
+/* add option begin
 export function submitPageName(params = {}) {
   const newParams = {
     ...params,
@@ -23,4 +23,4 @@ export function editPageName(params = {}) {
   };
   return request(`${API_URL.project.editPageName}`, newParams);//@template
 }
-/* end */
+end */

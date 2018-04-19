@@ -1,13 +1,13 @@
 import React from 'react';
 import { connect } from 'dva';
-import { Table, Pagination, Popconfirm } from 'antd';
+import { Table, Divider } from 'antd';
 import moment from 'moment';
 import styles from './ModuleName.less';
 import { paginationParams } from '../../constants';
 import PageNameFilter from './components/PageNameFilter';
-/* add option begin */
+/* add option begin
 import AddEditPageName from './components/AddEditPageName';
-/* end */
+end */
 
 
 class PageName extends React.Component {
@@ -108,7 +108,7 @@ class PageName extends React.Component {
           <div>
             <a onClick={() => {
               this.props.dispatch({
-                type: 'UserMgr/updateDoctorModal',
+                type: 'ModuleName/updatePageNameModal',
                 payload: {
                   newParams: {
                     showAddEdit: true,
@@ -117,10 +117,10 @@ class PageName extends React.Component {
                 },
               });
               this.props.dispatch({
-                type: 'UserMgr/updateSaveParams',
+                type: 'ModuleName/updateSaveParams',
                 payload: {
                   saveParams: {
-                    questionTypeName: 'test',
+                    questionTypeName: 'test', // @template
                   },
                 },
               });
@@ -129,11 +129,7 @@ class PageName extends React.Component {
             </a>
             <Divider type="vertical" />
             <a onClick={() => { this.changeModalView('modalVisible', 'open', 'edit'); this.edit(record.ydataAccountId); }}>修改</a>
-            {
-              /* add option begin */
-              <AddEditPageName />
-              /* end */
-            }
+            
           </div>
         ),
       },
@@ -154,6 +150,11 @@ class PageName extends React.Component {
             scroll={{ x: 1150 }}//@template scroll-x
           />
         </div>
+        {
+          /* add option begin
+          <AddEditPageName />
+          end */
+        }
       </div>
     );
   }

@@ -7,11 +7,11 @@ export default {
       list: [],
       queryParams: {}, // stateNameList 为object array,queryParams含查询条件，
       // 排序条件(direction,sort)和分页条件(limit,offset)
-      /* add option begin */
+      /* add option begin
       saveParams: {},//添加或编辑Modal字段值
       isEdit: false,
       showAddEdit: false,
-      /* end */
+      end */
     },
   },
   reducers: {
@@ -55,7 +55,7 @@ export default {
         },
       };
     },
-    /* add option begin */
+    /* add option begin
     updateSaveParams(state, {
       payload: {
         saveParams,
@@ -79,7 +79,7 @@ export default {
         stateName: { ...newData },
       };
     },
-    updateDoctorModal(state, {
+    updatePageNameModal(state, {
       payload: {
         newParams,
       },
@@ -93,7 +93,7 @@ export default {
         stateName: { ...newData },
       };
     },
-    /* end */
+    end */
   },
   effects: {
     *queryPageName({ payload = {} }, { call, put, select }) {
@@ -124,7 +124,7 @@ export default {
         },
       });
     },
-    /* add option begin */
+    /* add option begin
     *submitPageName({ payload = {}, callback }, { call, put, select }) {
       const { stateName = {} } = yield select(state => state.UserMgr) || {};
       const { submitParams = {} } = stateName;
@@ -138,7 +138,7 @@ export default {
           saveParams: newPayload,
         },
       });
-      const response = yield call(UserMgrService.submitPageName, newPayload);
+      const response = yield call(ModuleNameService.submitPageName, newPayload);
       if (!response) {
         return;
       }
@@ -161,7 +161,7 @@ export default {
           saveParams: newPayload,
         },
       });
-      const response = yield call(UserMgrService.editPageName, newPayload);
+      const response = yield call(ModuleNameService.editPageName, newPayload);
       if (!response) {
         return;
       }
@@ -171,7 +171,7 @@ export default {
         }
       }
     },
-    /* end */
+    end */
   },
   subscriptions: {
     setup({ dispatch, history }) {

@@ -14,18 +14,19 @@ class PageNameFilter extends React.Component {
         },
       });
     }
-    /* add option begin */
+    /* add option begin
     showAddEditModal = () => {
       this.props.dispatch({
-        type: 'UserMgr/updatePageNameModal',
+        type: 'ModuleName/updatePageNameModal',
         payload: {
           newParams: {
             showAddEdit: true,
+            isEdit: false,
           },
         },
       });
     }
-    /* end */
+    end */
     render() {
       const { getFieldDecorator } = this.props.form;
       const { assistants } = this.props;
@@ -69,13 +70,13 @@ class PageNameFilter extends React.Component {
             }
           </FormItem>
           {
-            /* add option begin */
+            /* add option begin
             <Button icon="plus" type="primary" onClick={() => { 
               this.showAddEditModal(); 
             }}
             >添加
             </Button>
-            /* end */
+            end */
           }
           <Button icon="search" onClick={this.handleSearch} type="primary" htmlType="submit" style={{ marginRight: 10 }}>搜索</Button>
         </Form>

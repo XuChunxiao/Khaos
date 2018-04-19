@@ -9,6 +9,9 @@ const ENV = window.configs || {};
 export const API_URL = {
   project: {
     queryDoctors: `${ENV.ADMIN_URL}/project/queryDoctors.do`, // 查询医生列表
+    queryScienceArticle: `${ENV.ADMIN_URL}/project/queryProjectType.do`, // demo查询列表
+    submitScienceArticle: `${ENV.ADMIN_URL}/project/addProjectType.do`, // demo添加
+    editScienceArticle: `${ENV.ADMIN_URL}/project/modifyProjectType.do`, // demo修改
   },
 };
 
